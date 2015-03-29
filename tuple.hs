@@ -10,6 +10,13 @@ listWithTuple = [(1,2),(2,3)]
 firstVal = fst (1,2)
 secondVal = snd (1,2)
 
--- create pairs like [(1,"one"),(2,"two"),(3,"three")]
-pairs = zip [1..3] ["one","two","three"]
-elementAt str int = head $ [v | (i, v) <- zip [1..] str, i == int] -- like !!
+-- list of tuple pairs is like key-value storage
+testPairs = zip [1..] ["one","two","three"] -- [(1,"one"),(2,"two"),(3,"three")]
+
+-- find value by key
+valueAt pairs key = head $ [v | (i, v) <- pairs, i == key]
+testValueAt = testPairs `valueAt` 2
+
+-- find char in string by index (like: !!)
+elementAt str index = head $ [v | (i, v) <- zip [1..] str, i == index]
+testElementAt = "awesome" `elementAt` 2
