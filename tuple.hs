@@ -20,3 +20,9 @@ testValueAt = testPairs `valueAt` 2
 -- find char in string by index (like: !!)
 elementAt str index = head $ [v | (i, v) <- zip [1..] str, i == index]
 testElementAt = "awesome" `elementAt` 2
+
+-- decompose tuple
+first :: (a, b, c) -> a
+first (x, _, _) = x
+
+testFirst = first (1, 2, 3)
