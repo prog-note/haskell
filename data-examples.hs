@@ -97,34 +97,3 @@ zero num = if num == 0
 
 testZero1 = zero 0 -- ERight "Zero"
 testZero2 = zero 2 -- EWrong 2
-
-
--- RECURSIVE data type (one parameter in constructor is the same as data type)
--- FIXITY declaration
-infixr 5 :>: -- right direction
-infixl 5 :<: -- left direction
-
-data SimpleList a = Empty
-      | RightPush a (SimpleList a) -- simple right constructor
-      | BadPush (SimpleList a) a   -- just something not good
-
-      | a :>: (SimpleList a)       -- right direction
-      | (SimpleList a) :<: a       -- left direction
-
-      deriving (Show)
-
-right1 = RightPush 1 $ RightPush 2 Empty      -- RightPush 1 (RightPush 2 Empty)
-right2 = 1 `RightPush` (2 `RightPush` Empty)  -- RightPush 1 (RightPush 2 Empty)
-bad = BadPush (BadPush (BadPush Empty 1) 2) 3 -- bad recursion ;(
-
-rightFixity = Empty :<: 1 :<: 2    -- (Empty :<: 1) :<: 2
-leftFixity =  1 :>: 2 :>: Empty    -- 1 :>: (2 :>: Empty)
-
--- minus is left directed method 4 - 2 - 1 == ((4 - 2) - 1)
---    declare fixity for right directed minus
-infixr 5 `minus`
-
-minus :: Float -> Float -> Float
-minus a b = a - b
-
-testMinus = 4 `minus` 3 `minus` 2 `minus` 1 -- (4 - (3 - (2 - 1)))
