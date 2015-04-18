@@ -3,14 +3,21 @@ infixr 5 :>: -- right direction
 infixl 5 :<: -- left direction
 
 data SimpleList a = Empty
-      | Push a (SimpleList a)      -- simple right constructor
-      | a :>: (SimpleList a)       -- right direction
-      | (SimpleList a) :<: a       -- left direction
+      | Push a (SimpleList a)      -- right constructor
+      | (SimpleList a) `LPush`  a  -- left constructor
+
+      | a :>: (SimpleList a)       -- right direction fixity
+      | (SimpleList a) :<: a       -- left direction fixity
+
       deriving (Show)
+
 
 right1 = Push 1 $ Push 2 Empty      -- Push 1 (Push 2 Empty)
 right2 = 1 `Push` (2 `Push` Empty)  -- Push 1 (Push 2 Empty)
+left  = Empty `LPush` 1 `LPush` 2   -- (Empty `LPush` 1) `LPush` 2
 
+
+-- with fixity we don't need parenthesis for right direction
 rightFixity = 1 :>: 2 :>: Empty     -- 1 :>: (2 :>: Empty)
 leftFixity  = Empty :<: 1 :<: 2     -- (Empty :<: 1) :<: 2
 
