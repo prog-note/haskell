@@ -1,6 +1,6 @@
-####ghc  - Glasgow Haskell Compiler
+#### ghc  - Glasgow Haskell Compiler
 
-####ghci - GHC Interactive
+#### ghci - GHC Interactive
 
   >  :load - load file to ghci
 
